@@ -28,6 +28,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local Bintree = require("external/awesome-treetile/bintree")
+local ui_daemon = require("daemons.system.ui")
 local os = os
 local math = math
 local ipairs = ipairs
@@ -284,12 +285,12 @@ end
 
 function treetile.horizontal()
 	forceSplit = "horizontal"
-	debuginfo("Next split is left right (|) split")
+	-- debuginfo("Next split is left right (|) split")
 end
 
 function treetile.vertical()
 	forceSplit = "vertical"
-	debuginfo("Next split is upper bottom (-)split")
+	-- debuginfo("Next split is upper bottom (-)split")
 end
 
 local function do_treetile(p)
@@ -480,7 +481,7 @@ local function do_treetile(p)
 						focusNode_geo_t:addLeft(Bintree.new(hash(c)))
 					end
 
-					local useless_gap = tonumber(beautiful.useless_gap)
+					local useless_gap = tonumber(ui_daemon:get_useless_gap())
 					if useless_gap == nil then
 						useless_gap = 0
 					else
@@ -608,7 +609,7 @@ function treetile.resize_client(inc) --{{{ resize client
 	local min_y = 20.0
 	local min_x = 20.0
 
-	local useless_gap = tonumber(beautiful.useless_gap)
+	local useless_gap = tonumber(ui_daemon:get_useless_gap())
 	if useless_gap == nil then
 		useless_gap = 0
 	else
